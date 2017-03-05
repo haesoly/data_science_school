@@ -1,0 +1,45 @@
+﻿bit/byte 개념
+python 언어 특징
+
+알고리즘/빅오 계산법
+1.덧셈
+2.숫자 리스트에서 최소값 찾기
+3.정렬된 숫자 리스트에서 특정 값 찾기
+4.숫자 리스트 순서대로 정렬
+5.두개의 숫자 리스트를 작은 순서대로 하나의 리스트로 병합
+빅오 복잡도 참고 -http://www.bigocheatsheet.com/
+
+
+python 설치
+1.환경 변수 설정하기                이유: 아무 경로로 들어가도 python 설치 될 수 있게 함
+제어판 -> 시스템 -> 고급시스템 설정
+시스템 변수 Path 변경하기
+C:\Python27;C:\Python27\Lib;C:\Python27\Scripts
+
+2.python 명령어 쳐서 나오면 정상적으로 설치 된것
+
+3.패키지 설치
+pip install requests : requests 패키지 설치
+pip install jupyter: 쥬피터 패키지 설치
+(#pip: python 패키지 management tool)
+
+4.jupyter notebook 사용하기
+원하는 작업 디렉토리 cmd창에서 이동한 뒤 
+jupyter notebook 명령어 실행
+
+
+jupyter notebook
+
+-파란색 명령어모드
+dd 셀 삭제
+b below
+h 도움말
+-초록색 코딩
+shift+enter 실행
+or ctrl+enter
+
+리눅스 경로 설정 명령어
+cd .. ->상위 디렉토리 이동
+cd / ->홈 디렉토리 이동
+d: ->드라이브 이동
+exit() -> 명령어 창으로 이동

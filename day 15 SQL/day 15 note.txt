@@ -1,0 +1,44 @@
+﻿world database zip다운
+sql파일 넣고 번개모양
+
+port 열어주고 누가 들어오길 기다림 -> Listen
+Listen하고 있는 서버에 mysqlworkbench 접속
+
+현재 서버에 ssh 와 mysql 프로그램 돌고있음
+
+df -h : 하드웨어 사양확인
+
+redis -인메모리 db
+1. 단점 : 휘발성 (서버 꺼지면 data날아감)
+snapshot으로 복구
+2. 용량의 한계
+
+use world;   -> schema에서 사용한 db 진한 글씨 처리됨
+ctrl+enter : line만 실행
+
+
+describe city;
+컬럼 구조를 추력
+
+화면에는 1000개 data만 나옴
+제한 해제하려면
+edit->preference-> sql excution->limit rows 해제
+
+SQL(Structured Query Language)(시퀄)
+mysql
+oracle
+ms-sql
+Postgre
+sqlite
+
+Index -> binary search tree 이용
+검색 용이 / 삽입.삭제는 느려짐
+
+SQL /Hadoop /Spark /Elastic Search/ mongodb/ redis
+GPU/ CUDA
+nosql - 분산처리용이 (shading)
+
+개인적으로 분산처리 공부하기 힘듬
+1. 환경 구축 힘듬
+2. 대용량 데이터 쌓기 힘듬
+

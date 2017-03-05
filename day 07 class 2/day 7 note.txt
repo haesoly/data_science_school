@@ -1,0 +1,100 @@
+﻿is - a관계에서는 상속/ has-a 포함관계   많이 썼었음 요즘 추세는 상속보다 포함관계 많이 씀
+
+상속의 문제점 :
+	* 부모클래스의 메소드 잘못 호출할 수 있음
+
+
+class Duck(List):
+    def add(self):
+        pass
+
+duck=Duck()
+duck.append()            #add 메소드 써야 하는데, List 객체 상속받았으므로 append 함수 사용하다가 버그 발생 가능
+
+
+
+composition  (has-a)
+
+class Bill(object):
+    def __init__(self, desc):
+        self.desc = desc
+
+class Tail(object):
+    def __init__(self, length):
+        self.length = length
+    def print_length(self):
+        print self.length
+
+class Duck(object):
+    def __init__(self, bill, tail, name):
+        self.bill = bill
+        self.tail = tail
+        self.name = name
+
+    def about(self):
+        print self.name, 'has a bill and it is', self.bill.desc, 'and a tail length of', self.tail.length
+
+tail = Tail(8)
+bill = Bill('very good')
+
+duck = Duck(bill, tail, 'aaron')
+duck.about()
+#duck.print_length()                #상속처럼 외부에서 부모 클래스 함수 사용 못함
+
+assert 함수: 값이 True이면 넘어가고 False면 에러출력
+test용 함수임!
+
+assert(factorial(1) == 1)
+
+
+named tuple
+	* tuple의 자식 클래스
+	* 클래스없이 객체를 생성할 수 있는 방법
+	* 값만 담아둘때 사용!
+
+
+Car = namedtuple('Car', 'engine door')
+car1 = Car('super power', 'ultra')
+
+Pet = namedtuple('Pet', ['name', 'age'])
+cat = Pet('allen', 10) 
+
+5가지 클래스 설계의 원칙 (S.O.L.I.D)
+
+	* single responsibility principle
+	* open-closed principle
+	* Liskov substitutio principle
+	* Interface segregation
+	* Dependency Inversion
+
+
+
+추상메소드
+
+class Workable(object):
+
+    @abstractmethod
+    def work(self):
+        pass
+
+
+디자인패턴
+1. observer 패턴
+
+	* 관찰자 / 비관찰자 관계에서 관찰자에게 특정 이벤트의 발생의 알림을 전달하는 패턴
+	* SMS / Email / Push 로 각각 알려야 하는 경우 구현해보기
+
+2. Builder pattern
+
+	* 복잡한 객체를 생성하는 패턴
+
+3.  Factory pattern :
+	* 객체를 생성하는 객체(Factory)를 만드는 패턴
+	* 안드로이드, 아이폰, 윈도우폰에 각각 push 메시지를 전송해야한다. 해당 기능을 이용하는 쪽에서는 각각 호출하게 될 폰의 종류를 알 수 있는데, 어떻게 설계 할 수 있을까?
+
+
+assert 함수
+값이 True이면 넘어가고 False면 에러출력
+test용 함수임!
+assert(factorial(1) == 1)
+assert isinstance(shapes, list), "`shapes` should be of type `list`."

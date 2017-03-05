@@ -1,0 +1,27 @@
+﻿html구조
+<html>
+     <head>
+          <title>
+          </title>
+     </head>
+     <body>
+     </body>
+</html>
+
+port fowarding
+
+ajax 동적으로 웹페이지 부분 변화시키는 기술
+
+webhook :자동으로 글을 쓸수 있게 하는 기술
+
+slack 설정-> add an app or integration
+1. https://fc-dss4.slack.com/apps/build ->build
+2. make a custom integration
+3. incoming webhooks
+
+time.sleep(3) :3초동안 스레드 정지
+
+테스트를 위한 브라우저: 웹 드라이버
+
+sudo pip install
+sudo: 관리자 권한으로 실행

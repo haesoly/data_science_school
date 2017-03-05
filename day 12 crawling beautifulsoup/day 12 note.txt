@@ -1,0 +1,222 @@
+﻿#git 사용법
+
+git reset HEAD test6.txt   :add에 올린 상황이면(stage 에 올림) 취소할수있음
+
+commit 취소(취소할것 남아있음)
+
+	* git reset HEAD@{2}  : commit 2개 취소
+
+
+commit 삭제(취소후 없어짐)
+
+	* git reset --hard HEAD~1 :마지막 commit 1개 삭제
+
+
+	* git reset --hard HEAD^^^ :  ^의 개수만큼 삭제
+
+
+
+git 히스토리 단장
+	* 마지막 커밋 수정
+	* 
+		* git commit --amend
+
+	* 여러개의 commit 수정
+	* 
+		* git rebase -i HEAD~3  :최근 3개의 커밋을 수정
+
+
+
+커밋 2개합치려면
+1)pick 지우기 & (s쓰기 or squash)
+2) :wq 이용해서 나가기
+3) This is the 1st commit message에다가 합쳐질 커밋 이름 작성
+
+vi 단축기
+
+	* x:글자 삭제
+
+
+	* a /  i :커서 뒤로 가면서 insert 가능
+
+
+	* esc :명령어 mode
+
+
+	* :wq :종료
+	* uu :되돌리기
+	* yy :복사하기
+	* p :붙여넣기
+
+
+	* dd :한 줄 지우기
+
+
+cf) https://git-scm.com/book/ko/v1/Git-%EB%8F%84%EA%B5%AC-%ED%9E%88%EC%8A%A4%ED%86%A0%EB%A6%AC-%EB%8B%A8%EC%9E%A5%ED%95%98%EA%B8%B0
+___________________________________________________
+
+http
+
+	* hyper text transfer protocol
+	* 브라우저와 같은 web client와 web server 사이에 데이터를 전송하는 규약(protocol)
+	* GET, POST 등등의 메소드를 이용
+	* GET: url내에 parameter형태로 data전송
+	* 
+POST: Back-end에서 data 전송 (ex.로그인)
+
+
+
+크롤링을 위해 알아야 할 기술
+     1.요청(requests)
+     2.HTML 추출 :bs4 (한계- 로그인 해야되는 페이지 크롤링 불가)
+     3.selenium (bs4의 한계 보완)
+
+
+	* urllib 모듈
+
+import urllib
+res = urllib.urlopen('http://www.naver.com')
+print res.code   # 200
+data = res.read()
+
+
+	* requests module
+
+import requests
+res = requests.get('http://naver.com')
+print res.status_code
+print res.text
+
+
+	* json형으로 변환
+
+import json
+res = requests.get('http://naver.com')
+data = json.loads(res.text)
+
+
+_________________________________________________________
+
+
+bs4 (BeautifulSoup) module
+	* 가장 널리 쓰이는 html parsing 모듈
+	* html 각 요소의 값을 다양한 방법으로 검색가능
+	* https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+
+
+def get_news_title(url):
+    response = requests.get(url)
+    content = response.text
+    soup = BeautifulSoup(content)
+    title = soup.title.get_text()  #title태그 접근
+
+    return title
+
+
+get_news_content(url):
+    response = requests.get(url)
+    content = response.text
+
+    soup = BeautifulSoup(content)
+#soup.div -> 첫번째 div만 가져옴
+#soup.find 사용
+#soup.find_all('p')
+    div = soup.find('div', attrs = {'id' : 'harmonyContainer'})
+
+    content = ''
+    for paragraph in div.find_all('p'):       #find_all은 list 반환
+        content += paragraph.get_text()
+
+    return content.encode('utf-8')
+
+___________________________________________________________________
+
+검색가능 여부 알아보기
+http://v.media.daum.net/robots.txt
+
+크롤링:
+도구더보기->개발자 도구
+
+chrome web store
+chrome 개발자 도구로 headers보기
+
+Rest API(Flask): 특정한 기능을 이용할 수있게 해줌
+
+https://www.hurl.it/  :헤더 수동으로 추가할 수 있는 사이트
+
+headers-> form data
+페이지 수
+____________________________________________________________________
+
+유니코드란?
+
+	* 전세계 모든 문자 집합을 표현 하기 위해 붙여진 코드
+	* utf-8 인코딩이 주로 사용
+	* python의 경우 문자열 앞에 u를 붙여 생성
+	* 자세한 설명 : http://d2.naver.com/helloworld/19187
+
+
+아스키코드: 7bit
+unicode :16bit - 전세계 문자를 동일하게 표기하기 위함    ex u'hello'
+
+
+str-> unicode :decode
+unicode -> str : encode
+
+python기본적으로 ascii code로 인식
+a= '한글'
+print a   -> 에러
+
+#-*- coding: utf-8 -*-      :앞줄에 추가해야함
+
+a= '한글'
+print a.decode('utf-8').encode('cp949')
+
+
+#-*- coding: utf-8 -*-
+
+import sys
+reload(sys)   # a를 ascii로 인식시켜줌 -> jupyter notebook에서는 이코드 쓰지말기
+sys.setdefaultencoding('utf-8')
+
+a='한글'
+print unicode(a)    #ascii-> unicode 
+
+b=u'한글'
+print b.encode('cp949')  # unicode-> cp949 (cmd창에서 출력되기 위함)
+
+window는 command창의 출력 CP949씀
+cmd 창에서  chcp 명령어 사용하면 unicode로 바뀜
+(python3에서는 유니코드 기본지원)
+____________________________________________________________________
+
+beautifulsoup module
+	* html의 DOM을 검색해서 원하는 내용이 있는 부분 검출 가능
+	* find / findall 함수를 주로 이용
+
+
+1. daum 검색 api 
+https://developers.daum.net/console
+
+res = requests.get(url)
+data = json.loads(res.text)
+h = HTMLParser()
+print h.unescape(data['channel']['item'][0]['title'])    #html에서 꺽새(<,>) 예쁘게 출력하는 방법
+
+2. 네이버 개발자 센터
+https://developers.naver.com/main
+
+네이버는 url에 값 넘겨주는 방식이 아닌, header에 값(key, api)을 넘겨주는 방식!
+
+client_key = 'myimXkexpKgr02y9TcOP'
+client_secret = 'IkMl0XlzXy'
+
+naver_url = 'https://openapi.naver.com/v1/search/blog.xml?query=갤럭시 노트7'
+headers = {}
+headers['Content-Type'] = 'application/xml'
+headers['X-Naver-Client-Id'] = client_key
+headers['X-Naver-Client-Secret'] = client_secret
+
+res = requests.get(naver_url, headers = headers)
+print res.text

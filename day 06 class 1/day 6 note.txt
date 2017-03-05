@@ -1,0 +1,71 @@
+﻿2주- 6주차
+
+python은 기본형이 다 class 타입!
+
+object 란
+
+	* 클래스로 생성되어 구체화된 객체(인스턴스)
+
+
+init(self)
+	* 생성자, 클래스 인스턴스가 생성될 때 호출됨
+	* self인자는 항상 첫번째에 오며 자기 자신을 가리킴
+	* 이름이 꼭 self일 필요는 없지만, 일반적으로 self로 사용
+
+
+#datetime 모듈을 이용하여 날짜 계산 가능
+import datetime as dt
+today = dt.datetime.now() # 현재 시간 계산
+week_ago = today - dt.timedelta(days = 7) # 일주일전 시간 계산
+
+print today, week_ago
+print week_ago < today       #더 커야만 신작
+
+
+method override
+
+	* 부모 클래스의 method를 재정의(override)
+	* 하위 클래스(자식 클래스) 의 인스턴스로 호출시, 재정의된 메소드가 호출됨
+
+
+super
+	* 하위클래스(자식 클래스)에서 부모클래스의 method를 호출할 때 사용
+	* super(Student, self).__init__(name)                      #python 2 문법    #python 3에서는 "super.__init__(parameter)"
+
+
+method type
+	* instance method(멤버 함수) - 객체로 호출
+	* class method - class로 호출
+
+
+    count = 0    # static member =(class variable) 모든 클래스가 공유하는 변수
+
+    @classmethod # class method, static function
+    def print_count(cls): #cls = class
+        print cls.count
+
+Duck typing
+	* 다형성에 대한 느슨한 구현.
+	* 클래스에 관계없이 같은 동작을 다른객체에 적용
+	* 타입에 관계없이 같은 method를 구현한 것으로 다형성에 활용
+	* 일반적인 언어는 상속으로 관계 설정해야 같은 type으로 인식, but python은 같은 이름을 가진 메소드만으로 묶을수 있음!
+
+
+special method
+	* __init__
+	* __eq__(self, word2):        #w1==w2 처럼 연산자로 표현할 수 있도록, special method정의! ->w1.compare(w2)보다 직관적임
+	* __add__
+	* __repr__(self):        #__repr__, __str__ 두개 동일하게 많이씀
+	* __str__(self):          #__repr__은 print 안쓸때 호출됨  __str__은 print 만날때 호출
+	* __len__(self):
+	* __ne__(self, other):  # != 연산자 사용
+
+
+
+___________________________
+
+pep :p
+절차지향 프로그래밍
+(멤버 변수가 없음)
+
+

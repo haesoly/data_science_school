@@ -1,0 +1,90 @@
+﻿17일차
+
+nosql join이 안되기 때문에 data를 중복해서 다 가지고 있음
+
+시중에 있는 nosql 은 거의 join하고 transaction 지원안됨
+
+mkdir myjob
+
+python test.py
+
+vi run.sh  -> 명령어 들어있는 파일 생성
+sh run.sh  -> run.sh 실행
+
+
+tmux send -t run:1 "python /home/ubuntu/myjob/test.py"  (run session과 파일 연결하게 함)
+
+
+tmux new -s run (run 이라는 session의 tmux를 실행)
+tmux attach -t run (이미 만들어져있던 run session 다시 복원)
+
+tmux ls:  현재 떠 있는 session 확인할 수 있음
+ctrl + b    c : 윈도우 생성
+ctrl + b    w: 윈도우간 이동
+
+.sh shell script (명령어 모음)
+
+
+sudo vi /ect/crontab에서
+*/1 * * * * ubuntu sh /home/ubuntu/myjob/run.sh
+
+dao(data access object)
+data를 넣거나 접근하는 것은 다 넣음
+save_news()
+
+
+crontab:  */1 * * * * ubuntu sh /home/ubuntu/myjob/run.sh
+run.sh:  tmux send -t run:1 "python /home/ubuntu/myjob/test.py" ENTER
+run2.sh: python /home/ubuntu/myjob/test.py
+
+#파일 보내는 법
+../dss4_key.pem -r navernews/ ubuntu@fdafafad.com:dfd
+
+multiprocesing
+장점: 병렬처리 가능
+단점: 디버깅 힘듬
+
+1. Editor ex) atom, subline test
+2. IDE ex) Pycharm
+api-ms-win-crt-runtime-l1-1-0.dll
+
+
+#atom 실행하는법
+경로이동
+. atom
+
+#atom 패키지 설치방법
+settings -> install
+
+웹서버 만들수 있는방법
+웹서버 : http request를 받아서 처리하는곳
+django, Flask, Tornado
+
+flask :micro service라 core한 기능만 가지고 있음(필요한거 있으면 import)
+Django: 모든 모듈가지고 있음(공부할때 시간걸림)
+
+java의 spring
+
+vi myserver.py
+
+pip install flask
+
+외부 접속용 port 열어준뒤
+서버에 웹서버 파일 올림
+5000번에서 돌고 있는것( 프로그램)
+
+ec2-52-38-25-32.us-west-2.compute.amazonaws.com:5000/test
+
+
+mongodb
+1. 서버에 깔거니까 install on Linux -community edition
+2. install on ubuntu
+3. 설명대로 설치 진행
+
+sudo vi /etc/mongod.conf
+안에서 bindIp 0.0.0.0 으로 변경
+
+mongodb/server/3.4/bin
+
+port 열고(mongodb 27017 port)
+--host ec2-52-38-25-32.us-west-2.compute.amazonaws.com --port 27017;

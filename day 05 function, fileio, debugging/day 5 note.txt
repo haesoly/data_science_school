@@ -1,0 +1,55 @@
+﻿5일차:lambda함수~ File IO
+
+if not a:  / if a ==0: -> 같은 표현
+
+Lambda 함수
+
+	* 코드 상에서 한번만 사용되는 기능이 있을 때, 굳이 함수로 만들지 않고 1회성으로 만들어서 쓸 때 사용.
+	* square2 = lambda x : x**2                        뒤에 반환값 작성
+	* add3 = lambda x, y: x + y
+
+
+sorted 함수
+print sorted(nums, key = lambda item : item[1], reverse=True)      
+key 값을 기준으로 정렬! 
+reverse : 역순으로 정렬하고 싶을때
+
+filter, map, reduce
+
+	* lambda가 유용하게 사용되는 3가지 대표적 함수
+	* 함수형 프로그래밍의 기본 요소이기도 함
+
+
+filter: 특정 조건을 만족하는 요소만 남기고 필터링             print filter(lambda x: x % 2 == 0, nums)
+map: 각 원소를 주어진 수식에 따라 변형하여 새로운 리스트를 반환         print map(lambda x: x**2, nums)
+reduce: 차례대로 앞 2개의 원소를 가지고 연산. 이것을 마지막 원소까지 진행         print reduce(lambda x, y : x if x > y else y, nums)
+
+except IndexError as err:
+except Exception as other: #ZeroDivisionError
+
+import numpy as np
+from numpy import random
+import numpy.random as random
+ 
+print np.random.randint(100)  #랜덤으로 난수생성
+np.random.rand()       #0부터 1까지의 난수 생성
+
+
+	* collections package
+	* Counter :counting을 목적으로 하는 객체              num_dict = defaultdict(int)
+	* defaultdict :기본값을 갖는 dictionary                    b = Counter(a)                  b.most_common()  #빈도수 많은것부터 출력
+	* OrderedDict :순서를 갖는 dictionary(key가 삽입된 순서)           dict1 = OrderedDict()
+
+
+
+
+cf) 아마존 lamda 서비스
+deploy 개발된것 복사
+- deploy만 개발자가 하면 나머지 서버+유지보수+운영 기타 등등 알아서 해줌
+ipython
+cpython
+jpython
+pypy
+numpy
+-수치해석 모듈(행렬,벡터 고속으로 계산)
+

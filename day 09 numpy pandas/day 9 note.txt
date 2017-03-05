@@ -1,0 +1,246 @@
+﻿
+	1. numpy:수학적 라이브러리 
+
+
+1-1 ndarray:
+
+	* numpy의 기본 타입
+	* vector, matrix를 표현(리스트=vector : 1차원   matrix(행렬): 2차원)
+	* arr2 = np.array( [[0, 1, 2], [2, 4, 6]] )
+
+a[0][2] :   1행3열
+
+arange : range()와 동일한 기능을 수행함
+arr3 = np.arange(1, 11)
+
+linspace: start,end를 n개의 균일한 간격으로 분할
+arr5 = np.linspace(0, 2, 5) :리니어 스페이스  #0 - 2의 범위를 5-1 등분 한다는 이야기
+[0.  0.5  1.  1.5  2.]
+
+np.zeros((2, 4))  :2행 4열짜리 0 행렬을 만들어줌
+
+np.ones((3, 3, 2))  :3차원: 3행 2열을 3번만듬
+
+np.random.rand(3)   : [0, 1] 사이, 숫자3개  출력
+np.random.randn(3)   : normal:  정규분포(평균값 근처로 나옴), 숫자 3개 출력
+np.random.randint(0, 35, 10)  :0~35사이(0포함,35포함X)에서 정수형 숫자 10개를 랜덤으로 가져오라
+np.random.randint(1, 10, (4,4))  1~9사이 숫자로 4,4행렬 만들기 
+np.random.randn(4,4)  :랜덤한 숫자로 4x4행렬 만들기 
+
+np.random.seed(0)    :랜덤한 값을 계속 유지하고 싶을 때 사용 : 숫자 값 1이라는 의미
+
+
+arr1.dot(arr2)  :행렬곱
+
+
+print arr2[0]
+print arr2[0, 1]
+print arr2[1:, :2]  #1행부터~ /~2열까지 (2차원 유지)
+print arr2[:, 2]  #2열만 가져옴 (1차원)
+print arr2[:, 1:] #2차원
+
+
+
+even_mask = (arr % 2 == 0)   :numpy 에서는 list에 연산을 하게 되면 각 원소마다 계산을 해줌!
+print even_mask      :boolean타입으로 반환 (filtering 거는것을 mask라고 함)
+print arr[even_mask]   :numpy에서는 이렇게 사용하면 true인것만 가져옴
+
+
+print arr[arr % 2 == 0]   :줄여서 이렇게 사용하기
+
+np.all(arr >= 0)  :조건을 다 만족하면 True, 한개라도 만족안하면 False   =  (arr >= 0).all()
+np.any(arr % 7 == 0)  :한개라도 만족하면 참
+(arr >= 0).all()
+
+ravel :다차원 배열을 1차원으로 늘이기(비트맵 이미지 변환에 사용)
+arr = np.array([np.arange(1, 6), np.arange(10, 15)])
+arr.ravel()
+
+reshape: 1차원 배열을 다차원 배열로 만들기
+arr.reshape(3, 5)
+
+data.dtype   :원소의 data type반환
+
+np.min(arr)
+np.mean(arr) :평균        =arr.mean()                  arr.mean(axis = 0):세로 연산  / arr.mean(axis =1) :가로 연산
+np.median(arr) :중간값
+np.max(arr)  :배열 내에서 최대값 반환
+np.maximum(arr1,arr2)  : arr1,arr2 같은 index 비교해서 둘중, 최대값 반환
+np.std(arr)  :표준편차
+np.argmin(arr)  :최소값이 있는 인덱스 반환
+np.argmax(arr)
+np.sum(arr)
+np.sqrt(arr) :루트(각 값마다 구함)
+np.exp(arr)  : 지수계산
+np.modf(arr)  :소수계산
+
+선형대수 package
+	* numpy.linalg
+	* from numpy.linalg import inv,qr
+
+inv(X) :역행렬 계산
+qr(X): qr분해
+
+np.cumsum()  : 누적 합 ndarray타입으로 반환
+
+points_sum=np.sum(points ** 2, axis =1)        :axis가 0이면 열별로 연산, axis가 1이면 행별로 연산
+np.sum(points_sum <= 1.0)
+
+________________________________________________________________
+
+          2. pandas: 데이터 분석 라이브러리
+
+
+2-1. Series
+
+	* pandas의 기본 객체 중 하나
+	* index를 지정하지 않을 시, 기본적으로 ndarray와 같이 0-based 인덱스 생성
+
+
+#Series 객체 생성
+s1 = pd.Series(20)
+s2 = pd.Series(range(1, 6))
+s3 = pd.Series(range(1, 4), index = ['a', 'b', 'c'])
+
+s4 = pd.Series(2, index = s3.index)
+s5 = pd.Series(np.random.randn(5))
+s6 = pd.Series(np.arange(1, 9))
+s7 = pd.Series({'a' : 100, 'b' : 1000, 'c' : 2, 'd' : 6})
+
+
+#Series객체 접근
+print s1[0]
+print s2.values  : 리스트 형태로 반환
+print s2.index
+s3['c']
+s3[1]   : index 문자로 지정시에도 0base index 기본적으로 저장   ( but 숫자로 index지정하게 되면 기본 0base 인덱스 사라짐 )
+s3[['a', 'b']]  :리스트를 가져옴
+s3.loc[['a','b']]  :  loc- index 기준
+s3.iloc[0,2,1]    :iloc - 0 based index 기준
+s3.loc['a']
+s3.iloc[0]
+pd.Series([0, 1, 1, 2, 3, 4, 5, 6, 7, np.nan])     :nan = not a number (값이 없음)
+
+
+#Series 함수
+len(s)
+s.size
+s.shape  :tuple로 반환
+s.count()       :NaN을 제외한 값을 카운팅
+s.unique()   :중복 제거
+s.value_counts()      :NaN 제외하고 값들을 카운팅 함   (많이씀!!!!!!)
+s.head() :   default- 상위 5개 출력
+s.head(3):    숫자지정- 상위 3개 출력
+s.tail():       :하위 5개 출력
+s.tail(2)
+s.take([0, 4, 3, 9])  :해당되는 인덱스 가져옴
+(s.take(['x', 'z']) : 에러 ->0 - based index만 가능)
+
+Series 객체 더하면 같은 인덱스 값끼리 값을 더해서 출력해줌!
+
+#Series 값 변경
+s['d'] = 1000
+
+#Series 값 삭제
+del s['a']
+
+#Series Slicing
+s[0:5]
+
+#numpy와 pandas Nan값 비교
+s.mean() Numpy: 수학적 라이브러리 -> 없는것 nan출력
+s.mean()  Pandas :데이터 분석 라이브러리-> 없는 것 skip하고 계산
+#pandas에서도 numpy와 같은 효과 내고 싶으면   print s.mean(skipna=False)
+
+print s > 5 and s < 8  :pandas, numpy에서 ->(X)에러
+print s[s > 5 and s < 8] :pandas, numpy에서 ->(X)에러
+print s[(s > 5) & (s < 8)] : & and , | or
+
+(s >= 0).all()
+(s < 2).any()
+s[s < 2].any()
+s[s >= 7].sum()    :7보다 큰 값의 합
+(s >= 7).sum()      : 7보다 큰 값의 개수
+_________________________________________________________________
+
+2-2. DataFrame : Table 구조
+
+#DataFrame 생성
+pd.DataFrame(np.array( [[10, 11], [20, 22]] ))
+df1 = pd.DataFrame([pd.Series(np.arange(10, 15)) , pd.Series(np.arange(20, 25))])
+pd.DataFrame(np.array( [[10, 20], [20, 30]] ), columns = ['a', 'b'] )
+df = pd.DataFrame(np.array([[10, 20], [20, 30]]), columns = ['a', 'b'], index = ['d1', 'd2'])    :columns: 열 이름, index:행 이름
+
+s1 = pd.Series(np.arange(1, 6, 1))
+s2 = pd.Series(np.arange(6, 11, 1))
+df = pd.DataFrame({'c1': s1, 'c2': s2})
+
+#DataFrame접근
+df.columns[0], df.index[1]  : 열 이름 접근, 행이름 접근
+apple_df = pd.read_csv('apple.csv', header = None)  #컬럼명을 첫번째줄로 출력
+
+column:
+print type(apple_df[[0, 4, 5]])  :0,4,5번째 column 선택(결과를 DataFrame으로 반환)
+print type(apple_df[[0]])
+print type(apple_df[['Date']])
+print type(apple_df[['Date', 'Close']])
+print type(apple_df['Date'])  :결과를 Series로 반환
+
+print apple_df.Date  :Date column 값 출력 
+print apple_df.Close  :Close column 값 출력
+
+row:
+
+	* Series의 경우 []로 row 선택이 가능하나, DataFrame의 경우는 기본적으로 column을 선택하도록 설계
+	* [:10]과 같이 slicing의 경우에는 row 선택 가능
+	* .loc, .iloc, .ix 의 함수로 row 선택 가능
+
+print apple_df[:10]    :pandas 인덱싱 지원안함 [10]은 에러 (0~9행까지 출력)
+pd.read_csv('sample.csv', index_col = 'Symbol', usecols = [0, 1, 2, 3, 7])
+sample_df['MMM' : 'ACN']  :'ACN'행까지 포함해서 출력
+sample_df [0:3]  :0에서 2행까지 출력
+
+sample_df.loc['MMM']  :Series로 반환
+sample_df.loc[['MMM', 'MSFT']]
+sample_df.iloc[[0, 1, 2]]   :DataFrame으로 반환
+sample_df.iloc[0]   :Series로 반환
+sample_df.ix[['MSFT', 'ZTS']]   :ix- 0base랑 문자열 다 받음
+sample_df.ix[[10, 11, 12, 15]]
+
+#DataFrame 함수
+df1.shape  :튜플로 행,열 갯수 반환
+df1.info()  : data type과 같은 정보 알수 있음
+df1.describe()   :data의 평균값, 최소, 최대, 중간값 등 분석해줌 (data처음열면 head메소드와 함께 많이씀!!)
+
+#column 추가하기 
+copy = sample_df.copy()  :중요
+copy['TwicePrice'] = sample_df.Price * 2  :맨뒤에 TwicePrice column 입력됨
+print copy[:10]
+
+copy.insert(1, 'TriplePrice', sample_df.Price * 3)  :1의 위치에 TriplePrice 열 입력
+print copy[:2]
+
+#column 삭제하기 
+del copy['Sector']
+
+#row 추가하기
+copy = copy.append(df1)
+copy.loc['Aaron'] = ['Aaron', 1000.0, 1000.0, 1000.0, 2000.0]
+
+#row 삭제하기
+copy.drop(['Aaron'])
+
+
+
+selection = sample_df.Price > 200
+lessthan200 = sample_df[-selection]   :  -표시 ->반전시킴: 200이하인것 표시
+print lessthan200[:2]
+____________________________________
+pip install -U numpy
+:최신버전으로 업그레이드
+
+pip install --help
+도움말 보기
+
+아나콘다 -데이터 분석에 필요한 패키지들을 묶어서 한번에 설치할 수 있게 배포
+(but virtualenv랑 충돌)

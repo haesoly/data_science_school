@@ -1,0 +1,183 @@
+﻿numpy
+
+transpose
+	* 배열 전치
+	* 데이터를 복사하지 않고 데이터 모양이 바뀐 뷰를 반환
+	* arr.T
+
+
+조건
+	* numpy where 함수 (x if condition else y) 삼항식의 벡터화된 버젼
+	* np.where(condition, val1, val2)
+	* np.where(arr>0, 1, -1)  :cond,true,fals
+	* 순수 python의 [x if c else y for x, y, c in zip(xarr, yarr, cond)]과 같은 기능
+
+
+정렬
+
+	* arr.sort()  : 작은것부터 큰것을 출력
+	* arr=arr[::-1]    :역순으로 정렬하기1
+	* -np.sort(-arr)   :역순으로 정렬하기2  
+	* arr.sort(1)      : 열을 따라서 정렬, 즉 각 행 정렬
+	* arr.sort(0)    :행따라 정렬, 즉 각 열 정렬
+
+
+집합 함수
+	* 많이 사용되는 집합 함수
+	* np.unique(x) : 중복 제거 후, 정렬하여 반환
+	* np.intersect1d(x, y) : 배열 중 공통적으로 포함하는 원소를 정렬하여 반환
+	* np.union1d(x, y) : 합집합 반환
+
+
+
+xrange
+
+	* range와 같은 역할/ 메모리 효율이 더 좋음
+	* for i in xrange(steps):
+
+
+step = 1 if random.randint(0, 1) else -1    :순수 python에서는 0,1포함
+ways = np.random.randint(0, 2, size = 1000)    :0 or 1 정수 1000개 생성
+
+_______________________________________________________________________
+
+group by
+
+	* nation_group = df.groupby('Nation')
+	* club_group = df.groupby(['Nation', 'Winners'])  :2개 이상의 컬럼으로 grouping 가능
+	* month_group = df.groupby(level = 0)  :index는 레벨로 grouping 가능(0번째 위치한, month index를 기준으로 groupby)
+	* month_stat_group = df.groupby(level = [0, 1])   : index로 설정되어 있어야 group by 메소드 사용가능
+	* month_stat_group = df.groupby(level = ['Month', 'Stat'])
+
+
+
+	* nation_group.groups     :group 정보를 dict로 반환
+	* len(nation_group.groups)   : 그룹의 개수
+	* nation_group.count()     :DataFrame타입으로 group 별 행개수 출력
+	* nation_group.size()    :Series로 반환
+	* nation_group.size().sort_values(ascending = False)  :큰값부터 출력(내림차순)
+
+
+
+index 생성
+
+	* df = pd.read_csv('./data/goal_stats_euro_leagues_2012-13.csv')
+	* df = df.set_index('Month')    :Month column을 index로 생성
+	* df = df.set_index(['Month', 'Stat'])  :multi index
+	* df.loc['08/01/2012', 'MatchesPlayed']   :multi index의 경우 index만큼의 인자로 인덱싱 가능
+	* df.reset_index()  :index 0base로 바꿈
+
+
+
+
+stat_group = df2.groupby(level = 'Stat')
+stat_group.sum()
+
+df2.sum(level = 'Stat') :  혹은 level을 이용하여 dataframe level에서 계산 가능
+
+
+year_group = df.groupby(lambda month : month.split('/')[2])   :년도 기준으로 출력 (년도 가장 마지막에 위치하니까)
+for name, group in year_group:
+    print name  :2013,2013
+    print group  :해당되는 값을 DataFrame형태로 반환
+
+__________________________________________________________________________
+
+# DataFrame 연산
+total_goal_df.ix['GoalsScored'] / total_goal_df.ix['MatchesPlayed']  :float안써도 소수자리까지 출력
+
+# Series -> DataFrame으로 변환
+goals_per_game_df = pd.DataFrame(goals_per_game_df).T
+
+# rename index
+goals_per_game_df = goals_per_game_df.rename(index = {0 : 'goals per game'})    :index 0을 'goals per game'으로 바꿈
+
+# 소수점 2자리까지 출력하도록 설정
+pd.options.display.float_format='{:.2f}'.format
+
+# 조건 설정해서 해당되는 DataFrame가져오기
+ df3[df3['Stat'] == 'GoalsScored']
+ plant_df[plant_df['group'] == 'ctrl']
+ df3.iloc[:, 1:]   :모든 행 출력, 1열부터 출력
+
+
+aggregate method :함수별로 묶어줌
+
+	* stat_group.aggregate(np.sum)
+	* stat_group.aggregate([np.sum, np.mean, np.size])
+
+
+transform method
+
+	* subframe(group)에 변형 적용
+	* transformed = year_group3.transform(lambda x : x.fillna(x.mean()))   :nan값에 평균값을 집어넣음
+
+
+pivot & reshaping
+
+	* pivot, unstack을 이용하여 분석하기 용이하도록 변형 가능
+	* plant_df.pivot(index = 'observation', columns = 'group', values = 'weight')        :index,columns,values값 지정해서 새로운 형태의 DataFrame생성
+	* pd.pivot_table(plant_df, values = 'weight', index = 'observation', columns='group')          :pivot_table 으로도 동일 결과 가능
+	* pd.pivot_table(plant_df, values = 'weight',  columns=['group'], aggfunc=np.mean)    :pivot_table의 경우 aggregation 수행 가능
+
+
+stack & unstack
+
+	* stack: column -> row
+	* unstack: row index -> column
+	* stacked_df.unstack()       : 기본적으로 0번째 index -> column으로 이동
+	* stacked_df.unstack().stack()   :마지막 column-> 마지막 index로 이동
+	* stacked_df.unstack(level = 0) 
+	* stacked_df.unstack(level = 'group')
+	* stacked_df.unstack(level = 'group').stack(level='group')
+
+
+_________________________________________________________________________________
+
+도식화 및 시각화
+	* 파이썬은 다양한 시각화 도구를 제공
+	* matplotlib는 주로 2D 도표를 위해 설계되었고, MATLAB과 유사한 인터페이스를 지원하고자 시작됨.
+	* import matplotlib.pyplot as plt
+	* %matplotlib inline      : plt.show()를 했을때 웹브라우저 내에서 도표를 볼 수 있음
+
+
+plot - 선을 그려줌
+
+	* plt.plot(arr.cumsum(), 'r-')
+	* plt.plot(np.arange(10),  np.arange(10) +2 * np.random.randn(10),  'r-')
+
+
+hist - 막대그래프
+
+	* plt.hist(np.random.randn(100),bins = 20,color='b',alpha=0.3)      :  bins:구역개수 alpha:투명도
+
+
+scatter - 선을 그려줌
+
+	* plt.scatter(np.arange(30),np.arange(30) + 3 * np.random.randn(30))     * np.random.randn(30) -일부러 noise를 줌
+
+
+subplot - 여러개의 (구역)sub plot으로 구성 가능
+    
+      fig, axes = plt.subplots(2,2, sharex= True, sharey= True)  : x와 y를 공유하는가
+     for i in range(2):
+         for j in range(2):
+             axes[i,j].hist(np.random.randn(500),bins=50,color ='k', alpha=0.3)  
+
+     plt.subplots_adjust(wspace =0.3, hspace =0)  #wspace - 가로 간격 hspace - 세로 간격
+
+선 스타일
+
+	*  r(빨강), g(초록), b(파랑), k(검정)
+	* --  -.    :   o    x    ^
+
+
+plt.xlabel('X')  :x축 제목 설정 
+plt.ylabel('Y')  :y축 제목 설정
+plt.title('Random')  :제목 설정
+plt.axis([0,1000,-50,50])  :눈금 설정
+plt.grid(True)
+plt.plot(np.random.randn(1000).cumsum(),label ='one')
+plt.plot(np.random.randn(1000).cumsum(),label ='two')
+plt.legend()  :범례
+plt.show()

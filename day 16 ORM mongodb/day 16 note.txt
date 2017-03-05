@@ -1,0 +1,90 @@
+﻿16일차
+
+cron: 자동화된 웹크롤링
+tmux: session 유지
+
+join
+A테이블 - n개,  B테이블 -m개
+1. cross join: 모든 row를 연결  (n*m)
+2. inner join: 일치하는 값끼리 join시킴
+3. outer join
+- left join: 왼쪽 테이블을 기준으로 join
+- right join: 오른쪽 테이블을 기준으로 join
+4. full join: unique한 값에 대해 join
+(sql에서sms 지원 안함)
+
+char /varchar 차이
+varchar 메모리 효율 더 좋으나
+char는 pointer 가지고 있지 않기때문에
+속도가 더 빠름
+
+테이블 정보보고싶으면
+테이블 마우스 대고 두번쨰 아이콘
+
+Mysql workbench에서는
+기본적으로 update문 막아놈
+->설정에서 풀어야 사용가능
+1.edit-> preference
+2. sql editer
+3. 'safe updates' ~ 체크항목 해제
+
+#use database
+귀찮으면
+마우스 오른쪽 클릭
+set as default schema 설정
+
+#Mysql workbench
+줄별 실행
+ctrl + enter
+
+foreign key 조건
+1.참조하는 테이블이 PK여야함
+2.PK 와 type같아야함
+
+#coupon
+outer join사용
+
+sqlalchemy
+ORM(object relation mapping)
+->단순히 field로 가져오는거보다
+-> DB를 객체(class) 단위로 가져옴
+객체로 mapping시켜서 가져옴
+column이 멤버변수로
+
+바꿀때는 객체에서 바꾸면 된다.
+
+java 하이브로나이트?
+python alchamy
+
+과제
+1. naver기사 크롤링 기사 시스템
+table생성(news)
+ID,title,content,crawling time(data type: DATETIME)
+python에서는 datetime.now()
+
+2. 크롤러 코드 작성
+selenium or bs4, request 이용
+crawl한뒤 DB에 추가
+
+3. crontab, tmax
+crontab 이용해서 크롤러 주기적으로 실행
+tmax
+
+sudo vi /etc/crontab
+00 7 ** *  ubuntu python test.py
+00 7,9 ** *  ubuntu python test.py
+7시와 9시
+00 */1 7,9 ** *  ubuntu python test.py
+7시와 9시
+
+매일매일 도는데 한시간 마다 도는것
+*** 매일매일
+
+tmux new -s crawler
+tmux attach -t cralwer
+
+ctrl b c : 뷰 생성
+ctrl b w : 뷰 간 이동
+ctrl b d : 나가기
+
+window에서 각자 다음 크롤러 / 네이버 크롤

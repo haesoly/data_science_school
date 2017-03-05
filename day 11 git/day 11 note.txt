@@ -1,0 +1,141 @@
+﻿3주 -11일차
+git 사용법
+
+VCS(version control system: 버전관리 시스템)
+- ex) sun svn cvs clearance git
+
+DVCS(Distributed version control system: 분산형 버전관리 시스템)
+- 중앙 서버를 구성하기는 하나 각자의 로컬 컴퓨터가 서버가 될 수 있음
+ex) git 
+
+cui (command line interface)
+
+
+1.github 이용: 원격 저장소의 모든 소스를 로컬 저장소로 복제 (원격 저장소-> 로컬 저장소)
+
+
+add.gitignore 에서 python 언어 설정    ( 불필요한 파일 및 폴더 무시 -ex. test.pyc)
+
+
+cmd 창에서: 
+1.경로 이동
+2. git clone https://github.com/haesoly/my_test.git        (https://github.com/haesoly/my_test.git  : 원격 주소)
+3.숨김폴더 해제(구성->폴더 및 검색 옵션->보기->숨김 파일, 폴더 및 드라이브 표시)
+4. .git 폴더 있는지 확인
+
+
+2.로컬 저장소 -> 원격 저장소
+
+
+1) git init - 로컬 저장소 생성(.git 디렉토리 생성으로 git 으로 관리할 수 있는 폴더가 됨)
+2  그 뒤 서버에올리고 싶을때는(push)
+git remote add origin https://github.com/haesoly/my_test.git
+리모트의 원격이나 내 서버 연결
+___________________________________________________________________________________
+
+
+git status: 현재상태를 알려주는 명령어
+
+원격에서 받는건 최초로 받는건 git clone
+그 후 부터는 git pull (git fetch + merge)   
+fetch:최신이력 가져옴(로컬에 있을때는 사용안해도됨) / merge:합침
+
+cf) fetch + rebase
+
+처음에 인증해야함
+git config --global user.name "haesoly"
+git config --global user.email lemonwhdk@gmail.com
+
+___________________________________________________________________________________
+
+
+로컬 서버에는 folder / stage /repository 3영역이 있음
+folder에 파일이 추가되면
+'git add'로 stage에 올리고 (tracking하기 위한 준비가 됨)
+'git commit' 이용해서 repository에 변경사항 기록
+'git push' 이용해서 서버에 동기화 (원격에 올림)
+
+
+git add hello.txt
+git add *   :  모든 파일 add
+git add .  
+
+	* 스테이지(준비영역)에 변경 이력 커밋 준비 
+
+
+-m 무슨이력인지 적어주는 명령어
+git commit -m "add hello.txt file"
+git commit -m "modified hello.txt and add hi.txt file"
+
+	* HEAD(로컬저장소)에 변경이력 추가
+
+
+git push origin [branch]
+git push origin master  
+
+	* 원격 저장소에 추가
+
+
+gitk --all: gitk로 볼 수 있게 해줌
+바뀐부분(초록색)으로 확인
+
+git pull (git fetch + git merge)  :
+	* 원격 저장소에서 최신 이력을 받아와, 로컬저장소와 작업공간의 3 way merge
+	* 
+git pull origin master
+
+
+
+___________________________________________________________________________________
+
+branch로 버전 관리: 다른 가지를 이용해서 개발을 진행하고, 나중에 개발이 완료되면 master가지로 돌아와 병합
+
+	* 
+hotfix : 제품 사용 중에 발견된 버그(bug)의 수정이나 취약점 보완, 또는 성능 향상을 위해 긴급히 배포되는 응급 패치 프로그램
+
+	* 
+dev : 주로 개발용 메인줄기
+
+	* 
+master(기본) : 주로 release 용도
+
+
+
+git branch : 현재 branch 확인
+git checkout -b dev  : -b로 생성하면서 dev branch로 이동
+git checkout master : 기존에 있는 master branch로 이동
+git checkout d688c83d18197f9338df235425cad7c007716a8d (gitk에서 sha1 ID 복사후 원하는 branch로 이동 가능)
+git branch -d dev : dev branch 삭제
+
+git tag v1.0 : 버전 이름 명명
+git tag -d v1.0 : 태깅 삭제 
+
+git push origin dev : 그동안 commit 했던거 dev branch에 push
+git push origin :dev   : 원격 저장소에 있는것도 지우고 싶을때(함부로 사용 X)
+___________________________________________________________________________________
+
+사용자 A와 B가 같은 파일 동시에 수정할 경우 -> 충돌일어남!
+git push origin master 명령어 -> fail
+
+해결1. 3-way merge
+1)git pull origin master    :fetch까지만 실행되고 merge 부분에서 에러남
+(git fetch origin master + git merge origin/master)
+2)개발자가 수동으로 충돌나는 파일 merge (if 충돌발생시)
+3)git add .
+4)git commit -m "merge a and b features"
+5)git push origin master
+
+
+해결2. rebase방법  (COMMIT 안함)
+1)git fetch origin master
+2)git rebase origin/master   : base를 origin/master로 바꿈
+3)개발자가 수동으로 충돌나는 파일 merge (if 충돌발생시)
+
+4)git add .  (merge한 상황 반영)
+5)git rebase --continue
+6)git push origin master
+
+___________________________________________________________________________________
+
+git push -f (충돌났을때 남의 작업 무시하고 내거 강제로 덮어씌움)
+git pull origin master에서  fast-foward는 (같은 branch내) 선행 branch에 있는 최신 이력 받아오는 상황 말함

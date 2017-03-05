@@ -1,0 +1,125 @@
+﻿14일차
+
+EC2 (Elastic computing)
+
+1. EC2 Management Consol
+2. EC2
+3. Running Instance
+4. Launch Instance
+5. Ubuntu launch
+6. Create a new key pair
+
+Public DNS: Public DNS (IPv4)
+ec2-52-38-25-32.us-west-2.compute.amazonaws.com 서버 주소
+
+download putty, puttygen
+
+load -> save private key로 : pem-> ppk파일형식으로 바꿈
+
+Putty-> auth-> Browse로 ppk파일 가져옴
+
+login as: ubuntu
+
+
+커널: I/O관리, 파일시스템 관리, 스케쥴링
+리눅스는 커널
+배포판
+
+Fedora/Redhat Ubuntu Centos AMI OS
+서버로 많이쓰는거는 Ubunto 와 Centos
+
+telnet에서 ssh로 바뀜
+telnet 단점: 전송 패킷 암호화 안되있기 때문에
+ssh (secure shell) :암호화를 지원하는 전송용 프로그램
+
+pwd :현재 위치가 나옴
+ls: 현재 폴더에 있는 파일들 출력
+touch :파일 만드는 명령어 (touch test.txt)
+mkdir: 폴더 만드는 명령어(mkdir test)
+ls -al : 모든파일을 자세하게 보여주세요(숨김파환, 일까지 표시)
+chmod : 권한 변경 (sudo chmod 400: root에게 읽기 권한을 줘라)
+ls --help:도움말 보기
+man ls: 옵션 도움말보기
+cd ../.. : 부모의 부모로 이동
+cd / : root로 이동
+cd ~: home디렉토리로 이동
+rm : 파일 지우기 (rm test.txt)
+rm -rf a1 ( -r :(recursive) : 안에 있는 것까지 지우기 , -f :강제로 지움)
+(rm -r test) : 폴더 지우기
+cp A B: A를 B로 복사
+cp test1 ../test3  cp test1 test2tes
+mv A B: A를 B로 이름 바꿈 or 경로 변경
+cat 파일명 : 표준 출력(console)으로 파일 내용 띄움
+ps : 실행중인 프로세스를 다 띄우기
+ps -ef : 모든 시스템 프로세스까지 띄우기
+grep : 검색하는 명령어
+
+(출력 방향만 바꿔줌)
+cat test3 > test4 : test3의 출력을 test4 파일로 띄우기 (복사와 유사한 효과)
+cat test3 >> test4 : append
+
+pipeline
+A|B: A의 출력이 B의 입력으로 들어감
+ex)
+ps -ef | grep ssh
+ls -al | grep test
+
+WinSCP 설치 : local과 서버 파일이동하는 프로그램
+
+vi test1(파일 존재하면 그 파일, 없으면 파일 새로 생성- 편집)
+
+i : 편집 모드 (나가려면 esc)
+a: command mode(명령 모드)
+$: 맨 뒤로 커서 옮김
+^:맨 앞으로 커서 옮김
+w: 다음 단어 단위로 옮김
+b: 앞의 단어 단위로 옮김
+x: 문자 하나씩 지움
+dd: 한줄씩 지움
+yy:복사
+p:붙혀넣기
+
+
+a: (append) 문자열 뒤에 입력할 수 있게 해줌
+u: 실행취소
+
+검색 기능 : /test (test를 찾기)
+n을 통해서 다음 문자열 찾기
+N을 통해서 앞의 문자열 찾기
+
+
+rwx(읽기권한, 쓰기권한, 실행권한)
+drwxrwxr-x : d는 디렉토리라는 것 표시
+첫번쨰 rwx: root의 권한    2번째: 해당 사용자가 속한 그룹내의 권한    3번째: 사용자의 권한
+
+
+
+
+apt-get :ubuntu 에 프로그램을 설치
+
+atom editor vs pycharm IDE(통합개발환경)
+통합개발환경: 필요한 tool 지원(Editor, Compiler, debugger)
+editor: 편집 지원
+
+
+localhost(127.0.0.1)..
+
+
+ctrl+l :스크롤 올리기
+
+vi /etc/mysql/my.cnf
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+
+Port열어주기
+Security Group-> launch wizard
+
+Inbound->Edit
+Add Rule
+Custom TCP Rule 추가 :3306 포트 열어줌
+
+
+connection name: dss_database
+
+hostname:
+
+비밀번호 입력하고-> Test connection
