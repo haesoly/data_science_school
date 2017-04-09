@@ -1,0 +1,55 @@
+22일차
+
+python unittest1.py -v
+
+main 을 제외한 부분 실행
+
+python -m unittest unittest2
+
+-setupclass 나 teardownclass 안에 test할꺼
+넣어놓기
+
+tdd:
+test케이스를 먼저 작성한다음에 기능을 구현함
+
+직렬화(Serialization)
+직렬화 구현 -pickle
+객체를 byte로 바꿈(string)
+string을 받은쪽에서는 -> 객체로 다시 변경
+
+정수형, 실수형이 아닌 객체를 네트워크로 전송 or 파일로 읽고쓰고싶을때
+->pickle사용
+
+redis 실행
+redis-cli
+
+required: 필수 파라미터를 주고 싶을때
+
+unittest 는 db, 파일 입출력 최소화
+setup 멤버변수로 저장후
+계속 사용
+
+#웹서버 - response를 해주는애
+#client -> request 해주는애
+
+응답 형식
+-plain text
+-json/xml
+-html
+
+port 16비트
+육만얼마까지밖에 안됨
+
+html을 완전 구현하는것이 아니라
+templete형식으로 만든다음에 값을 채워줌
+
+
+더 쉽게 client개발 하는것
+html
+Javascript
+CSS
+JQuery
+Angular JS
+react
+
+cotrol +c 웹서버 끄기

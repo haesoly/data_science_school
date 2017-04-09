@@ -1,0 +1,84 @@
+generator: sequence를 그때그때 생성하는것
+
+[i for i in len]
+
+{i: i*2 for i in len}
+
+(i for i in len)
+
+generator 출력을 할 수가 없음
+순회를 하면서 값을 하나씩 줌: 메모리 사용이 효율적임
+
+iterator : 순회자체를 추상화한 객체
+iterator 자체를 반복적으로 순회할 수 있음
+
+next() 이용해서 다음값을 가져옴
+
+next가 호출될때마다
+
+raise 예외를 발생시킴
+
+
+generator function
+yield: 코드에 있으면 generator
+함수를 호출한다고 수행되는것 X
+메모리를 다 만든게 아니라 불릴때마다 생성( next 불릴때마다 yield 아래부터 수행) -> 메모리 효율적
+
+append 방식 사용하면: 다만들고 주기때문에 느림
+
+xrange도 순회할때만 값이 생김-> 메모리 효율 GOOD
+range는 처음에 전체값 생성
+
+중첩함수: 외부에서 호출이 안됨
+
+decorator: 함수를 꾸미는것, 함수에 기능을 추가흔 것
+내부함수를 만들어서 반환시키면 외부함수에서 사용할 수 있음
+
+원래는 지역변수라 사라져야함
+내부함수에서 외부함수가 종료되었음에도 불구하고 변수 기억 기능 -> Closure
+
+Closure 사용 이유-> 함수 은닉 기능
+
+decorator 안에 parameter 넣는경우
+
+Method decoration
+depth 1: parmaeter
+depth 2: 함수
+depth 3: argument, keyword argument
+
+python -m dis test.py
+dis 모듈을 이용해서 소스를 바이트코드로 변환
+
+thread: process내의 실행흐름
+한 프로세스에서 돌기때문에 코드, 데이터 공유
+
+concurrent
+parallel => 물리적으로 나눔
+
+보통 : main스레드가 죽으면 죽음
+python: 메인 스레드가 죽어도 죽지않음
+daemon process가 살아있을때 종료된다
+(한개라도 daemon이 남아있는게 있으면 안죽고
+마지막이 daemon이면 죽음)
+
+
+atomic: 연산이 한번에 이루어지냐
+python에서 X
+값이 바뀔수도 있으면 됨
+A
+1.100 로드
+
+B
+2.로드 100
+더하고 101
+저장 101n
+
+A
+3.더하고
+저장
+
+Thread 동기화 -> cycle 보장함으로써 값 유실되는것 막음
+
+18초 -> 7초(4개 core로)
+하나가 I/O하는 시간에
+나머지 실행됨

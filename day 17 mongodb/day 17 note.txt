@@ -73,8 +73,6 @@ pip install flask
 서버에 웹서버 파일 올림
 5000번에서 돌고 있는것( 프로그램)
 
-ec2-52-38-25-32.us-west-2.compute.amazonaws.com:5000/test
-
 
 mongodb
 1. 서버에 깔거니까 install on Linux -community edition
@@ -87,4 +85,4 @@ sudo vi /etc/mongod.conf
 mongodb/server/3.4/bin
 
 port 열고(mongodb 27017 port)
---host ec2-52-38-25-32.us-west-2.compute.amazonaws.com --port 27017;
+

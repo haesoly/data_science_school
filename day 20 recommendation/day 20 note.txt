@@ -1,0 +1,110 @@
+
+concurrent 동시성
+parallel 병렬성
+
+python: 한번에 한쓰레드 밖에 실행 못되게 막음
+
+thread가 살아있는 조건
+-데몬이 아닌 쓰레드가 한개라도 남아서 수행하고 있다면
+process는 대기함
+
+thread는 parameter 가 없기 때문에, __init__함수에서 매개변수 받아서
+멤버변수 가져다 씀
+
+동기화 - event이용(동기화할 수 있는 단위)
+중간애 객체를 만들어서 사용
+
+event가 set되어있으면 event대기
+clear되있으면 대기 풀림
+
+event는 set되지 않으면 항상 block 됨
+
+wait로 thread 블록되어 있는 상태
+
+n+=1 이지만 실제로 수행되는 연산은 3단계
+1. Load  n
+2. n +1
+3. write n
+
+realease() 는 항상 finally안에 써줘야함!
+
+기본적으로 python은 multithread지원안되기 때문에 빨라지지 않음
+thread 스위칭 시간때문에 시간 더 걸림
+CPU처리가 많은 코드는 python에서 유리 X
+대신 I/O처리가 많은 코드에서는 유리
+남이 I/O하는 동안에 내가 실행할 수 있음
+
+I/0가 많으면 multithread
+cpu가 많은 코드는 multiprocess
+
+gpgpu 프로그래밍
+CUDA /openl공부
+external gpu
+
+spark hadoop 분산처리
+
+
+queue: get은 threadsafe 보장함
+producer, consumer 모델을 만들때 적합
+
+분산처리 책 추천: java언어로 배우는 디자인 패턴 입문: 멀티쓰레드 편
+
+최적화
+-자료구조
+-알고리즘
+-컴퓨터구조
+-O.S
+
+process: memory 에 떠 있는 상태
+
+multiprocess: 각각 process별로 물리적인 메모리 할당받음(독립된 공간)
+data공유 X
+
+pool:미리 만들어놈-> 필요할때마다 가져다씀
+생성비용 절약
+
+process가 많다고 무조건 좋은것 NO -> CPU 갯수 한정되어 있기 때문에
+
+atomoic 하지 않은 연산을 atomic하게 만들어줌 -> 동기화
+
+
+CF
+
+협력적인 필터링
+유사한 사용자들이 이걸 좋아할거니까 너도 이걸 좋아할꺼야
+
+CBF
+남을 베재하고 나의 기호만 따지는것
+
+user based CF:
+각 유저가 얼마나 유사하냐가 관건
+
+item based CF:
+각 item이 얼마나 유사하냐가 관건
+
+
+user
+200만 제곱 (4*10**12 개 테이블 필요)
+item
+3000만개  (9X10**14 테이블 필요 )
+
+라면 item이 더 성능이 좋을지도 있겠지만, user based가 속도 더 빠름
+
+CF의 문제점:
+1. cold start problem(처음에는 참고할 data가 없음)
+2. sparse vector(대부분의 평점이 비어있음) : 메모리 비효율적인 구조
+-> 해결방법 :dict (내가 있는 위치정보만 가지고 있음)
+
+
+CF의 장점:
+domain 몰라도 됨
+
+멜론 같은 경우에는 평점안들었음
+1번 노래 100번 들음 2번노래 0번 들음 3번노래 50번 들음
+-> 1번 5점, 2번 0점, 3번 3점으로 바꿔줌
+
+SFrame
+pandas의 dataframe포함 하는 기능
+
+많이 추천할수록 recall은 좋아지지만 precision 은 떨어짐
+

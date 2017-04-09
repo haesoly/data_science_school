@@ -10,7 +10,6 @@ EC2 (Elastic computing)
 6. Create a new key pair
 
 Public DNS: Public DNS (IPv4)
-ec2-52-38-25-32.us-west-2.compute.amazonaws.com 서버 주소
 
 download putty, puttygen
 

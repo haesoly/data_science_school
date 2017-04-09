@@ -1,0 +1,59 @@
+
+show dbs
+show collections
+
+db.names.insertOne({'name': 'aaron', 'age': 32, 'vals':[1,2,3,4], 'vals': {'a':1,
+'b':2}})
+db.names.insertMany([{'name':'bob','age':30,'_id':2}, {'b':1}])
+value값으로 dict도 검색 가능
+
+db.names.find()
+schema 가 없기 때문에 아무값이나 집어넣을 수 있음
+_id는 명시해주지 않으면 자동으로 고유한값 생성
+
+ctrl +L 창 지우기!
+
+
+드라이버: 각 언어별 라이브러리(모듈)
+
+pip install pymongo
+
+pymongo를 이용해서 mongodb접속
+
+document invading
+유효한 python dict값이면 level 상관없이 입력가능
+
+mongodb:(비정규화)
+장점: schema설계가 필요업음
+join할 필요없기 때문에, 읽기가 빠름
+단점: 수정에 불리( 중복된 data가지고 있기 때문), 쓰기에 안좋음
+
+relation db(정규화)
+장점: 쓰기편함
+단점: 읽기가 느림
+
+$exists: 예약어
+{age > 3}   -> X
+{age: {'$gt' : 3}}
+
+python crawler.py
+
+mongoimport --host 서버주소   --port 27017 --db test --collection data1 --drop --file primer-dataset.json
+
+mongoexport --host --db 서버주소 test --collection data1 --out out.json
+(local에서 쓸때는 -host 써줘야함)
+
+(JavaScript) Map-reduce
+aggregate
+명령어 pipeline
+
+match(where)
+group(group by)
+
+grouping할때 항상 id는 있어야함
+
+ db.zip.aggregate([
+             {$group : {_id : '$state', totalPop : {$sum : '$pop'}}},
+             {$match : {totalPop : {$gte : 10 * 1000 * 1000}}}
+])
+값으로 들어올때는 $붙여야함
