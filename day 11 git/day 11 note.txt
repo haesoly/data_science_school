@@ -43,8 +43,8 @@ fetch:최신이력 가져옴(로컬에 있을때는 사용안해도됨) / merge:
 cf) fetch + rebase
 
 처음에 인증해야함
-git config --global user.name "haesoly"
-git config --global user.email lemonwhdk@gmail.com
+git config --global user.name 
+git config --global user.email 
 
 ___________________________________________________________________________________
 
